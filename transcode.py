@@ -76,6 +76,7 @@ def locate(root, match_function, ignore_dotfiles=True):
     '''
     for path, dirs, files in os.walk(root):
         for filename in (os.path.abspath(os.path.join(path, filename)) for filename in files if match_function(filename)):
+            dirs[:] = [d for d in dirs if d not in ["TrackerMetadata",".TrackerMetadata"]]
             if ignore_dotfiles and os.path.basename(filename).startswith('.'):
                 pass
             else:
